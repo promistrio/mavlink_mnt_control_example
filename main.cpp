@@ -35,7 +35,7 @@ int write_message(int fd, const mavlink_message_t &message)
 int main()
 {
     // Open the serial port. Change device path as needed (currently set to an standard FTDI USB-UART cable type device)
-    int serial_port = open("/dev/ttyACM0", O_RDWR);
+    int serial_port = open("/dev/ttyTHS1", O_RDWR);
 
     // Create new termios struc, we call it 'tty' for convention
     struct termios tty;
@@ -84,7 +84,7 @@ int main()
     // Write to serial port
 
     mavlink_message_t message;
-/*
+
     mavlink_mount_configure_t mnt_configure = {0};
     mnt_configure.target_system = MNT_SYSID;
     mnt_configure.target_component = MNT_COMPID;
@@ -95,14 +95,14 @@ int main()
 
     mavlink_msg_mount_configure_encode(GCS_SYSID, GCS_COMPID, &message, &mnt_configure);
 
-    write_message(serial_port, message); */
+    write_message(serial_port, message); 
 
     // Allocate memory for read buffer, set size according to your needs
 
     mavlink_mount_control_t mnt_ctrl = {0};
     mnt_ctrl.save_position = 0; 
-    mnt_ctrl.target_component = MNT_SYSID; 
-    mnt_ctrl.target_system = MNT_COMPID; 
+    mnt_ctrl.target_component = MNT_COMPID; 
+    mnt_ctrl.target_system = MNT_SYSID; 
 
     mnt_ctrl.input_a = 2000 ; //pitch 
     mnt_ctrl.input_b = 2000 ; //roll
